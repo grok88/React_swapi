@@ -32,8 +32,8 @@ export default class PeoplePage extends React.Component{
 			return <Error/>
 		}
 
-		return (
-			<div className='row mb2'>
+		return ( 
+				<div className='row mb2'>
 					<div className='col-md-6'>
 						<ItemList 
 							onPropsSelected = {this.onPersonSelected}/>
@@ -43,7 +43,7 @@ export default class PeoplePage extends React.Component{
 							personId={this.state.personSelected}/>
 						<ErrorButton/>
 					</div>
-			</div>
+				</div>
 		);
 	}
 }

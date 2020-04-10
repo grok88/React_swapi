@@ -13,21 +13,14 @@ import PeoplePage from '../people-page/people-page';
 export default class App  extends React.Component{
 	state = {
 		showPlanet : true,
-		hasError : false,
-		personSelected : null
+		hasError : false
 	}
 
 	componentDidCatch(){
 		console.log('componentDidCatch');
 		this.setState({hasError : true});
 	}
-
-	onPersonSelected = (id) => {
-		this.setState({
-			personSelected : id
-		});
-	}
-
+	
 	onTogglePlanet = () => {
 		this.setState((state) => {
 			return {
@@ -54,17 +47,9 @@ export default class App  extends React.Component{
 					<ErrorButton />
 				</div>
 
-				<div className='row mb2'>
-					<div className='col-md-6'>
-						<ItemList 
-							onPropsSelected = {this.onPersonSelected}/>
-					</div>
-					<div className='col-md-6'>
-						<PersonDetails 
-							personId={this.state.personSelected}/>
-						<ErrorButton/>
-					</div>
-				</div>
+				<PeoplePage/>
+				<PeoplePage/>
+				<PeoplePage/>
 			</div>
 		);
 	}
