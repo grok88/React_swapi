@@ -6,8 +6,7 @@ import Spinner from '../spinner/spinner';
 
 export default class PersonDetails extends React.Component {
 	state = {
-		person : null,
-		loading : true
+		person : null
 	}
 
 	swapiService = new SwapiService();
@@ -32,30 +31,24 @@ export default class PersonDetails extends React.Component {
 		this.swapiService.getPerson(personId)
 			.then(person => {
 				this.setState({
-					person,
-					loading : false
+					person
 				});
 			});
 	};
 
 	render(){
-		// console.log(this.state.loading);
-		// console.log(this.state.person);
-		const test = (this.state.loading && this.state.person) ? <Spinner/> : null;
-		
+
 		if(!this.state.person){
 			return (<span>
-					{test}
 					Select a person from List
 				</span>)
 		}
 		
-		const {person : {id, name, gender, birthYear, eyeColor}, loading} = this.state;
+		const {person : {id, name,email,phone, website}} = this.state;
 
 
 		return (
 			<div className='person-details card'>
-				{test}
 				<img className='person-image'
 					src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}/>
 					<div className='card-body'>
@@ -64,16 +57,16 @@ export default class PersonDetails extends React.Component {
 						</h4>
 						<ul className='list-group list-group-flush'>
 							<li className='list-group-item'>
-								<span className='term'>Gender</span>
-								<span>{gender}</span>
+								<span className='term'>Email</span>
+								<span>{email}</span>
 							</li>
 							<li className='list-group-item'>
-								<span className='term'>Birth Year</span>
-								<span>{birthYear}</span>
+								<span className='term'>Phone</span>
+								<span>{phone}</span>
 							</li>
 							<li className='list-group-item'>
 								<span className='term'>Eye Color</span>
-								<span>{eyeColor}</span>
+								<span>{website}</span>
 							</li>
 						</ul>
 					</div>

@@ -6,22 +6,21 @@ import Spinner from '../spinner/spinner';
 import Error from '../error/error';
 
 export default class RandomPlanet extends React.Component {
-	constructor(){
-		super();
-		this.updatePlanet();
-		this.interval = setInterval(this.updatePlanet, 10000);
+	state = {
+		planet : {},
+		loading : true,
+		error : false
 	}
 
 	swapiService = new SwapiService();
 
-	state = {
-		planet : {},
-		loading : true
+	componentDidMount(){
+		this.updatePlanet();;
 	}
 
-	componentWillUnmount(){
-		clearInterval(this.interval);
-	}
+	// componentWillUnmount(){
+	// 	clearInterval(this.interval);
+	// }
 	
 	onPlanetLoaded = (planet) => {
 		this.setState({
@@ -40,7 +39,7 @@ export default class RandomPlanet extends React.Component {
 
 	updatePlanet = () => {
 		const id = Math.floor(Math.random()*25) + 2;
-		this.swapiService.getPlanet(id)
+		this.swapiService.getImg(id)
 			.then(this.onPlanetLoaded)
 			.catch(this.onError);
 	}
@@ -63,25 +62,25 @@ export default class RandomPlanet extends React.Component {
 }
 
 const PlanetView = ({planet}) => {
-	const {id, name, population, rotationPeriod, diameter} = planet;
+	const {id,title, url, thumbnailUrl} = planet;
 	return (
 		<React.Fragment>
 			<img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
 					className='random-image'/>
 			<div>
-				<h4>{name}</h4>
+				<h4>Данные о картине</h4>
 				<ul className='list-group list-group-flush'>
 					<li className='list-group-item'>
-						<span className='term'>Population</span>
-						<span>{population}</span>
+						<span className='term'>Tittle</span>
+						<span>{title}</span>
 					</li>
 					<li className='list-group-item'>
-						<span className='term'>Rotation Period</span>
-						<span>{rotationPeriod}</span>
+						<span className='term'>Url</span>
+						<span>{url}</span>
 					</li>
 					<li className='list-group-item'>
-						<span className='term'>Diametr</span>
-						<span>{diameter}</span>
+						<span className='term'>ThumbnailUrl</span>
+						<span>{thumbnailUrl}</span>
 					</li>
 				</ul>
 			</div>

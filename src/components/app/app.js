@@ -13,12 +13,19 @@ import PeoplePage from '../people-page/people-page';
 export default class App  extends React.Component{
 	state = {
 		showPlanet : true,
-		hasError : false
+		hasError : false,
+		personSelected : null
 	}
 
 	componentDidCatch(){
 		console.log('componentDidCatch');
 		this.setState({hasError : true});
+	}
+
+	onPersonSelected = (id) => {
+		this.setState({
+			personSelected : id
+		});
 	}
 
 	onTogglePlanet = () => {
@@ -38,7 +45,6 @@ export default class App  extends React.Component{
 		return (
 			<div>
 				<Header/>
-				<RandomPlanet />
 				{planet}
 				<div className='row mb2 button-row'>
 					<button className='show-planet btn btn-warning btn-lg'
