@@ -7,6 +7,7 @@ import ItemList from '../item-list/item-list';
 import PersonDetails from '../person-details/person-details';
 import ErrorButton from '../error-btn/error-btn';
 import Error from '../error/error';
+import SwapiService from '../../services/swapi-service';
 
 import PeoplePage from '../people-page/people-page';
 
@@ -16,11 +17,13 @@ export default class App  extends React.Component{
 		hasError : false
 	}
 
+	swapiService = new SwapiService();
+
 	componentDidCatch(){
 		console.log('componentDidCatch');
 		this.setState({hasError : true});
 	}
-	
+
 	onTogglePlanet = () => {
 		this.setState((state) => {
 			return {
@@ -48,8 +51,39 @@ export default class App  extends React.Component{
 				</div>
 
 				<PeoplePage/>
-				<PeoplePage/>
-				<PeoplePage/>
+				
+				<div className='row mb2'>
+					<div className='col-md-6'>
+						<ItemList 
+							onPropsSelected = {this.onPersonSelected}
+							getData = {this.swapiService.getAllImg}
+							renderItem={(item) => item.title}/>
+					</div>
+					<div className='col-md-6'>
+						<PersonDetails 
+							personId={this.state.personSelected}/>
+						<ErrorButton/>
+					</div>
+				</div>
+
+				<div className='row mb2'>
+					<div className='col-md-6'>
+						<ItemList 
+							onPropsSelected = {this.onPersonSelected}
+							getData = {this.swapiService.getAllPosts}
+							renderItem={(item) => (
+								<span>
+									{item.id} <button>!</button>
+								</span>
+							)}
+							/>
+					</div>
+					<div className='col-md-6'>
+						<PersonDetails 
+							personId={this.state.personSelected}/>
+						<ErrorButton/>
+					</div>
+				</div>
 			</div>
 		);
 	}

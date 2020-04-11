@@ -5,6 +5,8 @@ import ItemList from '../item-list/item-list';
 import PersonDetails from '../person-details/person-details';
 import ErrorButton from '../error-btn/error-btn';
 import Error from '../error/error';
+import SwapiService from '../../services/swapi-service';
+
 
 
 
@@ -13,6 +15,8 @@ export default class PeoplePage extends React.Component{
 		personSelected : null,
 		hasError : false
 	}
+
+	swapiService = new SwapiService();
 
 	componentDidCatch(error, info){
 		// debugger;
@@ -33,10 +37,12 @@ export default class PeoplePage extends React.Component{
 		}
 
 		return ( 
-				<div className='row mb2'>
+				<div className='row mb2 people'>
 					<div className='col-md-6'>
 						<ItemList 
-							onPropsSelected = {this.onPersonSelected}/>
+							onPropsSelected = {this.onPersonSelected}
+							getData = {this.swapiService.getAllPeople}
+							renderItem={(item) => `${item.name}  ( ${item.email})`}/>
 					</div>
 					<div className='col-md-6'>
 						<PersonDetails 

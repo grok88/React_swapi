@@ -1,44 +1,78 @@
 import React from 'react';
 import './item-list.css'
 
-import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner/spinner';
 
 export default class ItemList extends React.Component{
 	state = {
-		people : null
+		itemList : null
 	}
 
-	swapiService = new SwapiService();
+	// swapiService = new SwapiService();
 
 	componentDidMount = () => {
-		this.swapiService.getAllPeople()
-			.then(peopleList => {
+		const {getData} = this.props;
+
+		getData()
+			.then(itemList => {
 				this.setState({
-					peopleList
+					itemList
 				});
 			})
 	}
 
+	
+	// renderItems(items){
+	// 	const {onPropsSelected} = this.props;
+	// 	return items.map((item, i)=>{
+	// 		for (i; i < 6; i++){
+	// 			if(item.name){
+	// 				return (
+	// 					<li className='list-group-item'
+	// 					key={item.id}
+	// 					onClick={() => onPropsSelected(item.id)}>{item.name}</li>
+	// 				);
+	// 			} else if(item.url){
+	// 				return (
+	// 					<li className='list-group-item'
+	// 					key={item.id}
+	// 					onClick={() => onPropsSelected(item.id)}>{item.title}</li>
+	// 				);
+	// 			} else if (item.userId){
+	// 				return (
+	// 					<li className='list-group-item'
+	// 					key={item.id}
+	// 					onClick={() => onPropsSelected(item.id)}> Posts -{item.id}</li>
+	// 				);
+	// 			}
+	// 		}
+	// 	});
+	// }
+
 	renderItems(items){
 		const {onPropsSelected} = this.props;
-		return items.map(({name, id})=>{
-			return (
-				<li className='list-group-item'
-				key={id}
-				onClick={() => onPropsSelected(id)}>{name}</li>
-			);
+		return items.map((item, i)=>{
+			const {id} = item;
+			const label = this.props.renderItem(item)
+			for (i; i < 6; i++){
+				
+				return (
+					<li className='list-group-item'
+					key={id}
+					onClick={() => onPropsSelected(id)}>{label}</li>
+				);
+			}
 		});
 	}
 
 	render(){
-		const {peopleList} = this.state;
+		const {itemList} = this.state;
 
-		if (!peopleList){
+		if (!itemList){
 			return <Spinner/>
 		}
 		
-		const items = this.renderItems(peopleList);
+		const items = this.renderItems(itemList);
 		return (
 			<ul className='item-list list-group'>
 				{items}

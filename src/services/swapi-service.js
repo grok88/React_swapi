@@ -1,6 +1,6 @@
 export default class SwapiService {
 
-	async getResource (url){
+	getResource = async (url) => {
 		const response = await fetch(url);
 		if (!response.ok){
 			throw new Error(`Could not fetch - ${url}, received ${response.status}`);
@@ -9,24 +9,34 @@ export default class SwapiService {
 		return body; 
 	}
 
-	async getAllPeople(){
+	getAllPeople = async () => {
 		const response = await this.getResource(`http://jsonplaceholder.typicode.com/users`);
 		return response.map(this._transformPerson);
 	}
 
-	async getPerson(id){
+	getPerson = async(id) => {
 		const person = await this.getResource(`http://jsonplaceholder.typicode.com/users/${id}`);
 		return this._transformPerson(person);
 	}
 
-	async getAllImg(){
+	getAllImg = async() => {
 		const response = await this.getResource(`http://jsonplaceholder.typicode.com/photos/`);
-		return response.map(this._transformPlanet);
+		return response.map(this._transformImg);
 	}
 
-	async getImg(id){
+	getImg = async (id) => {
 		const planet = await this.getResource(`http://jsonplaceholder.typicode.com/photos/${id}`);
 		return this._transformImg(planet)
+	}
+
+	getAllPosts = async() => {
+		const response = await this.getResource(`http://jsonplaceholder.typicode.com/posts`);
+		return response.map(this._transformPost);
+	}
+
+	getPost = async(id) => {
+		const response = await this.getResource(`http://jsonplaceholder.typicode.com/posts/${id}`);
+		return response.map(this._transformPost(response));
 	}
 
 	// async getStarships(){
@@ -53,6 +63,27 @@ export default class SwapiService {
 			thumbnailUrl : planet.thumbnailUrl
 		}
 	}
+	
+
+	_transformPerson = (person) =>{
+		return {
+			// id : this._extractId(person),
+			id : person.id,
+			name : person.name,
+			email : person.email,
+			phone : person.phone,
+			website : person.website
+		}
+	}
+
+	_transformPost = (post) => {
+		return {
+			id : post.id,
+			userId : post.userId,
+			title : post.title,
+			body : post.body
+		}
+	}
 
 	// _transformPlanet = (planet) =>{
 	// 	return {
@@ -77,15 +108,4 @@ export default class SwapiService {
 	// 		cargoCapacity : starship.cargo_capacity
 	// 	}
 	// }
-
-	_transformPerson = (person) =>{
-		return {
-			// id : this._extractId(person),
-			id : person.id,
-			name : person.name,
-			email : person.email,
-			phone : person.phone,
-			website : person.website
-		}
-	}
 }
