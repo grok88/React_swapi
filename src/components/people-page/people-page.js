@@ -7,7 +7,18 @@ import ErrorButton from '../error-btn/error-btn';
 import Error from '../error/error';
 import SwapiService from '../../services/swapi-service';
 
-
+const Row = ({left, right}) => {
+	return (
+		<div className='row mb2 people'>
+			<div className='col-md-6'>
+				{left}
+			</div>
+			<div className='col-md-6'>
+				{right}
+			</div>
+		</div>
+	);
+}
 
 
 export default class PeoplePage extends React.Component{
@@ -36,20 +47,24 @@ export default class PeoplePage extends React.Component{
 			return <Error/>
 		}
 
-		return ( 
-				<div className='row mb2 people'>
-					<div className='col-md-6'>
-						<ItemList 
-							onPropsSelected = {this.onPersonSelected}
-							getData = {this.swapiService.getAllPeople}
-							renderItem={(item) => `${item.name}  ( ${item.email})`}/>
-					</div>
-					<div className='col-md-6'>
-						<PersonDetails 
-							personId={this.state.personSelected}/>
-						<ErrorButton/>
-					</div>
-				</div>
+		const itemList = (
+			<ItemList 
+								onPropsSelected = {this.onPersonSelected}
+								getData = {this.swapiService.getAllPeople}
+								renderItem={(item) => `${item.name}  ( ${item.email})`}/>
+		);
+
+		const personDetails = (
+			<PersonDetails 
+				personId={this.state.personSelected}/>
+		);
+
+
+		return (
+			<div>
+				<Row left={itemList} right={personDetails}/>
+				<Row left='foo' right='bar'/>
+			</div>
 		);
 	}
 }
