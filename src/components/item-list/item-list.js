@@ -53,7 +53,8 @@ export default class ItemList extends React.Component{
 		const {onPropsSelected} = this.props;
 		return items.map((item, i)=>{
 			const {id} = item;
-			const label = this.props.renderItem(item)
+			console.log(this.props.children);
+			const label = this.props.children(item)
 			for (i; i < 6; i++){
 				
 				return (

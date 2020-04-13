@@ -52,7 +52,7 @@ export default class App  extends React.Component{
 
 				<PeoplePage/>
 				
-				<div className='row mb2'>
+				{/* <div className='row mb2'>
 					<div className='col-md-6'>
 						<ItemList 
 							onPropsSelected = {this.onPersonSelected}
@@ -83,7 +83,7 @@ export default class App  extends React.Component{
 							personId={this.state.personSelected}/>
 						<ErrorButton/>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		);
 	}
