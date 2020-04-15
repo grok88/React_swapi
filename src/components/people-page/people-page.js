@@ -2,24 +2,11 @@ import React from 'react';
 import './people-page.css';
 
 import ItemList from '../item-list/item-list';
-import PersonDetails from '../person-details/person-details';
+import ItemDetails from '../item-details/item-details';
 import ErrorButton from '../error-btn/error-btn';
 import Error from '../error/error';
 import SwapiService from '../../services/swapi-service';
 
-const Row = ({left, right}) => {
-	return (
-		<div className='row mb2 people'>
-			<div className='col-md-6'>
-				{left}
-			</div>
-			<div className='col-md-6'>
-				{right}
-				<ErrorButton/>
-			</div>
-		</div>
-	);
-}
 
 class ErrorBoundry extends React.Component{
 	state ={
@@ -40,7 +27,25 @@ class ErrorBoundry extends React.Component{
 	}
 }
 
-export default class PeoplePage extends React.Component{
+const Row = ({left, right}) => {
+	return (
+		<div className='row mb2 people'>
+			<div className='col-md-6'>
+				<ErrorBoundry>
+					{left}
+				</ErrorBoundry>
+			</div>
+			<div className='col-md-6'>
+				<ErrorBoundry>
+					{right}
+				</ErrorBoundry>
+			</div>
+		</div>
+	);
+}
+
+
+class PeoplePage extends React.Component{
 	state = {
 		personSelected : null
 	}
@@ -69,15 +74,17 @@ export default class PeoplePage extends React.Component{
 
 		const personDetails = (
 			// <ErrorBoundry>
-				<PersonDetails personId={this.state.personSelected}/>
+				<ItemDetails itemId={this.state.personSelected}/>
 			// </ErrorBoundry>
 		);
 
 
 		return (
-			<ErrorBoundry>
+			// <ErrorBoundry>
 				<Row left={itemList} right={personDetails}/>
-			</ErrorBoundry>
+			// </ErrorBoundry>
 		);
 	}
 }
+
+export {Row, PeoplePage};

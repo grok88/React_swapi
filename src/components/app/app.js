@@ -4,12 +4,12 @@ import './app.css';
 import Header from '../header/header';
 import RandomPlanet from '../random-planet/random-planet';
 import ItemList from '../item-list/item-list';
-import PersonDetails from '../person-details/person-details';
+import ItemDetails, {Record} from '../item-details/item-details';
 import ErrorButton from '../error-btn/error-btn';
 import Error from '../error/error';
 import SwapiService from '../../services/swapi-service';
 
-import PeoplePage from '../people-page/people-page';
+import {Row, PeoplePage} from '../people-page/people-page';
 
 export default class App  extends React.Component{
 	state = {
@@ -38,19 +38,52 @@ export default class App  extends React.Component{
 			return <Error/>
 		}
 		const planet = this.state.showPlanet ? <RandomPlanet /> : null;
+		const {getPerson, getImg, getPersomImg, getStarshipImg, getPlanetImg} = this.swapiService;
+
+		const personDetails = (
+			<ItemDetails itemId={9}	
+				getData={getPerson}
+				getImgUrl={getPersomImg}>
+
+				<Record field='name' label="Name"/>	
+				<Record field='email' label="Email"/>	
+				<Record field='phone' label="Phone"/>	
+
+			</ItemDetails>
+			);
+
+		const imgDetails = (
+			<ItemDetails itemId={5}	
+				getData={getImg}
+				getImgUrl={getStarshipImg}>
+
+				<Record field='title' label="Title:"/>	
+				<Record field='id' label="Id image:"/>	
+				<Record field='url' label="Url:"/>	
+
+			</ItemDetails>
+			);
+
 		return (
 			<div>
 				<Header/>
-				{planet}
+				{/* {planet}
 				<div className='row mb2 button-row'>
 					<button className='show-planet btn btn-warning btn-lg'
 						onClick ={this.onTogglePlanet}>
 						Toggle Planet
 					</button>
 					<ErrorButton />
-				</div>
+				</div> */}
 
-				<PeoplePage/>
+				
+				<Row
+					left={personDetails}
+					right={imgDetails}
+				/>
+
+				{/* <PeoplePage/> */}
+
 				
 				{/* <div className='row mb2'>
 					<div className='col-md-6'>
@@ -60,7 +93,7 @@ export default class App  extends React.Component{
 							renderItem={(item) => item.title}/>
 					</div>
 					<div className='col-md-6'>
-						<PersonDetails 
+						<ItemDetails 
 							personId={this.state.personSelected}/>
 						<ErrorButton/>
 					</div>
@@ -79,7 +112,7 @@ export default class App  extends React.Component{
 							/>
 					</div>
 					<div className='col-md-6'>
-						<PersonDetails 
+						<ItemDetails 
 							personId={this.state.personSelected}/>
 						<ErrorButton/>
 					</div>

@@ -39,6 +39,17 @@ export default class SwapiService {
 		return response.map(this._transformPost(response));
 	}
 
+	getPersomImg = (item) => {
+		return `https://starwars-visualguide.com/assets/img/characters/${item.id}.jpg`;
+	}
+
+	getStarshipImg = (item) => {
+		return `https://starwars-visualguide.com/assets/img/starships/${item.id}.jpg`;
+	}
+
+	getPlanetImg = (item) => {
+		return `https://starwars-visualguide.com/assets/img/planets/${item.id}.jpg`;
+	}
 	// async getStarships(){
 	// 	const response = await this.getResource(`/starships/`);
 	// 	return response.results.map(this._transformStarship);
