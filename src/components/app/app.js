@@ -11,6 +11,15 @@ import SwapiService from '../../services/swapi-service';
 
 import {Row, PeoplePage} from '../people-page/people-page';
 
+import {
+	PersonList,
+	ImgList,
+	PostsList,
+	PersonDetails,
+	ImgDetails,
+	PostsDetails
+} from '../sw-components/index';
+
 export default class App  extends React.Component{
 	state = {
 		showPlanet : true,
@@ -67,22 +76,37 @@ export default class App  extends React.Component{
 		return (
 			<div>
 				<Header/>
-				{/* {planet}
+				{planet}
 				<div className='row mb2 button-row'>
 					<button className='show-planet btn btn-warning btn-lg'
 						onClick ={this.onTogglePlanet}>
 						Toggle Planet
 					</button>
 					<ErrorButton />
-				</div> */}
+				</div>
 
-				
-				<Row
+				<PersonDetails itemId={5}/>
+				<ImgDetails itemId={11}/>
+				<PostsDetails itemId={7}/>
+
+				<PersonList>
+					{({name}) => <span>{name}</span>}
+				</PersonList> 
+
+				<ImgList>
+					{({title}) => <span>{title}</span>}
+				</ImgList> 
+
+				<PostsList>
+					{({id}) => <span>{id}</span>}
+				</PostsList> 
+
+				{/* {<Row
 					left={personDetails}
 					right={imgDetails}
-				/>
+				/>}
 
-				{/* <PeoplePage/> */}
+				<PeoplePage/> */}
 
 				
 				{/* <div className='row mb2'>

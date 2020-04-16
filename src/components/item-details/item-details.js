@@ -1,12 +1,9 @@
 import React from 'react';
 import './item-details.css';
 
-import SwapiService from '../../services/swapi-service';
-import Spinner from '../spinner/spinner';
 import ErrorButton from '../error-btn/error-btn'
 
 const Record = ({item, field,label}) => {
-		// console.log(item, field, label);
 	return (
 		<li className='list-group-item'>
 			<span className='term'>{label}</span>
@@ -22,8 +19,6 @@ export default class ItemDetails extends React.Component {
 		item : null,
 		image : null
 	}
-
-	swapiService = new SwapiService();
 
 	componentDidMount(){
 		this.updatePerson();
@@ -61,7 +56,7 @@ export default class ItemDetails extends React.Component {
 		}
 		
 		const {item, image} = this.state;
-		const {id, name,email,phone, website} = item;
+		const {name} = item;
 		// const itemRender = this.props.itemRender(item); 
 
 
@@ -80,19 +75,6 @@ export default class ItemDetails extends React.Component {
 									return React.cloneElement(child, {item});
 								})	
 							}
-							{/* <Record/>
-							<li className='list-group-item'>
-								<span className='term'>Email</span>
-								<span>{email}</span>
-							</li>
-							<li className='list-group-item'>
-								<span className='term'>Phone</span>
-								<span>{phone}</span>
-							</li>
-							<li className='list-group-item'>
-								<span className='term'>Eye Color</span>
-								<span>{website}</span>
-							</li> */}
 						</ul>
 						<ErrorButton/>
 					</div>

@@ -2,7 +2,7 @@ import React from 'react';
 import './people-page.css';
 
 import ItemList from '../item-list/item-list';
-import ItemDetails from '../item-details/item-details';
+import ItemDetails, {Record} from '../item-details/item-details';
 import ErrorButton from '../error-btn/error-btn';
 import Error from '../error/error';
 import SwapiService from '../../services/swapi-service';
@@ -60,10 +60,6 @@ class PeoplePage extends React.Component{
 
 	render(){
 
-		// if(this.state.hasError){
-		// 	return <Error/>
-		// }
-
 		const itemList = (
 			<ItemList 
 				onPropsSelected = {this.onPersonSelected}
@@ -73,9 +69,17 @@ class PeoplePage extends React.Component{
 		);
 
 		const personDetails = (
-			// <ErrorBoundry>
-				<ItemDetails itemId={this.state.personSelected}/>
-			// </ErrorBoundry>
+			<ErrorBoundry>
+				<ItemDetails itemId={this.state.personSelected}
+							getData = {this.swapiService.getPerson}
+							getImgUrl={this.swapiService.getPersomImg}>
+
+						<Record field='name' label="Name"/>	
+						<Record field='email' label="Email"/>	
+						<Record field='phone' label="Phone"/>
+
+				</ItemDetails>
+			</ErrorBoundry>
 		);
 
 

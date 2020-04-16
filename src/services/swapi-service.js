@@ -36,10 +36,10 @@ export default class SwapiService {
 
 	getPost = async(id) => {
 		const response = await this.getResource(`http://jsonplaceholder.typicode.com/posts/${id}`);
-		return response.map(this._transformPost(response));
+		return this._transformPost(response);
 	}
 
-	getPersomImg = (item) => {
+	getPersonImg = (item) => {
 		return `https://starwars-visualguide.com/assets/img/characters/${item.id}.jpg`;
 	}
 
