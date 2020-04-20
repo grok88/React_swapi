@@ -1,63 +1,65 @@
 import React from 'react';
 
-import ItemList from '../item-list/item-list';
-import withData from '../hoc-helpers/with-data';
 import SwapiService from '../../services/swapi-service';
 import ItemDetails , {Record} from '../item-details/item-details'
 
 const swapiService = new SwapiService();
 const {
 	getPerson,
-	getImg,
-	getPost,
+	getStarship,
+	getPlanet,
 	getPersonImg,
 	getStarshipImg,
 	getPlanetImg
 } = swapiService;
 
 const PersonDetails = ({itemId}) => {
+	console.log(itemId);
 	return (
 		<ItemDetails itemId={itemId}
 								getData = {getPerson}
 								getImgUrl={getPersonImg}>
 
-			<Record field='name' label="Name"/>	
-			<Record field='email' label="Email"/>	
-			<Record field='phone' label="Phone"/>
+			<Record field='name' label="Name"/>		
+			<Record field='gender' label="Gender"/>	
+			<Record field='birthYear' label="BirthYear"/>
 
 		</ItemDetails>
 	);
 };
 
-const ImgDetails = ({itemId}) => {
+const PlanetDetails = ({itemId}) => {
 	return (
 		<ItemDetails itemId={itemId}
-								getData = {getImg}
-								getImgUrl={getStarshipImg}>
-
-			<Record field='title' label="Title:"/>	
-			<Record field='id' label="Id image:"/>	
-			<Record field='url' label="Url:"/>
-
-		</ItemDetails>
-	);
-};
-
-const PostsDetails = ({itemId}) => {
-	return (
-		<ItemDetails itemId={itemId}
-								getData = {getPost}
+								getData = {getPlanet}
 								getImgUrl={getPlanetImg}>
 
-			<Record field='title' label="Title:"/>	
-			<Record field='id' label="Id image:"/>	
+			<Record field='name' label="Name"/>	
+			<Record field='population' label="Population:"/>	
+			<Record field='rotationPeriod' label="Rotation Period:"/>
 
 		</ItemDetails>
 	);
 };
+
+const StarshipDetails = ({itemId}) => {
+	return (
+		<ItemDetails itemId={itemId}
+								getData = {getStarship}
+								getImgUrl={getStarshipImg}>
+
+			<Record field='model' label="Model:"/>	
+			<Record field='crew' label="Crew:"/>	
+			<Record field='costInCredits' label="costInCredits:"/>	
+
+		</ItemDetails>
+	);
+};
+
+
 
 export {
 	PersonDetails,
-	ImgDetails,
-	PostsDetails
+	PlanetDetails,
+	StarshipDetails
 }

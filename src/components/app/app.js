@@ -13,11 +13,11 @@ import {Row, PeoplePage} from '../people-page/people-page';
 
 import {
 	PersonList,
-	ImgList,
-	PostsList,
+	PlanetsList,
+	StarshipList,
 	PersonDetails,
-	ImgDetails,
-	PostsDetails
+	PlanetDetails,
+	StarshipDetails
 } from '../sw-components/index';
 
 export default class App  extends React.Component{
@@ -86,27 +86,22 @@ export default class App  extends React.Component{
 				</div>
 
 				<PersonDetails itemId={5}/>
-				<ImgDetails itemId={11}/>
-				<PostsDetails itemId={7}/>
+				<PlanetDetails itemId={10}/>
+				<StarshipDetails itemId={9}/>
 
-				<PersonList>
-					{({name}) => <span>{name}</span>}
-				</PersonList> 
+				<PersonList/>
+				
 
-				<ImgList>
-					{({title}) => <span>{title}</span>}
-				</ImgList> 
-
-				<PostsList>
-					{({id}) => <span>{id}</span>}
-				</PostsList> 
-
-				{/* {<Row
+				<PlanetsList/>
+				
+				<StarshipList/>
+					
+				{/* <Row
 					left={personDetails}
 					right={imgDetails}
-				/>}
+				/> */}
 
-				<PeoplePage/> */}
+				{/* <PeoplePage/>  */}
 
 				
 				{/* <div className='row mb2'>

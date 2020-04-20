@@ -16,50 +16,45 @@ const Record = ({item, field,label}) => {
 
 export {Record};
 
-class ItemDetails extends React.Component {
-	// state = {
-	// 	item : null,
-	// 	image : null
-	// }
+export default class ItemDetails extends React.Component {
+	state = {
+		item : null,
+		image : null
+	}
 
-	// componentDidMount(){
-	// 	this.updatePerson();
-	// }
+	componentDidMount(){
+		this.updatePerson();
+	}
 
-	// componentDidUpdate(prevProps){
-	// 	if(this.props.itemId !== prevProps.itemId){
-	// 		this.updatePerson();
-	// 	}
-	// }
+	componentDidUpdate(prevProps){
+		if(this.props.itemId !== prevProps.itemId){
+			this.updatePerson();
+		}
+	}
 
-	// updatePerson = () =>{
-	// 	const {itemId, getData, getImgUrl} = this.props;
+	updatePerson = () =>{
+		const {itemId,getData, getImgUrl} = this.props;
+		if (!itemId){
+			return;
+		}
 
-	// 	if (!itemId){
-	// 		return;
-	// 	}
-
-
-	// 	getData(itemId)
-	// 		.then(item => {
-	// 			this.setState({
-	// 				item,
-	// 				image : getImgUrl(item)
-	// 			});
-	// 		});
-	// };
+		getData(itemId)
+			.then(item => {
+				this.setState({
+					item,
+					image : getImgUrl(item)
+				});
+			});
+	};
 
 	render(){
-
-		// if(!this.state.item){
-		// 	return (<span>
-		// 			Select a item from List
-		// 		</span>)
-		// }
+		const {item, image} = this.state;
 		
-		const {item, image} = this.props;
+		if (!item) {
+			return <span>Select a item from a list</span>;
+		}
+		
 		const {name} = item;
-		// const itemRender = this.props.itemRender(item); 
 
 
 		return (
@@ -84,5 +79,3 @@ class ItemDetails extends React.Component {
 		);
 	}
 }
-const {getPerson} = new SwapiService();
-export default withDetails(ItemDetails, getPerson);

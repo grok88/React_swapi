@@ -1,16 +1,16 @@
-import {PersonList,
-		ImgList,
-		PostsList} from './item-lists';
+import { PersonList,
+		PlanetsList,
+		StarshipList } from './item-lists';
 
-import {PersonDetails,
-	ImgDetails,
-	PostsDetails} from './details';
+import { PersonDetails,
+		PlanetDetails,
+		StarshipDetails } from './details';
 
 export {
 	PersonList,
-	ImgList,
-	PostsList,
+	PlanetsList,
+	StarshipList,
 	PersonDetails,
-	ImgDetails,
-	PostsDetails
+	PlanetDetails,
+	StarshipDetails
 }
