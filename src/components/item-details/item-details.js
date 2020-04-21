@@ -2,8 +2,6 @@ import React from 'react';
 import './item-details.css';
 
 import ErrorButton from '../error-btn/error-btn'
-import withDetails from '../hoc-helpers/with-details';
-import SwapiService from '../../services/swapi-service';
 
 const Record = ({item, field,label}) => {
 	return (
@@ -27,7 +25,7 @@ export default class ItemDetails extends React.Component {
 	}
 
 	componentDidUpdate(prevProps){
-		if(this.props.itemId !== prevProps.itemId){
+		if(this.props.itemId !== prevProps.itemId || this.props.getData !== prevProps.getData || this.props.getImgUrl !== prevProps.getImgUrl){
 			this.updatePerson();
 		}
 	}

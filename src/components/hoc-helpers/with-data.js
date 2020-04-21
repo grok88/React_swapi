@@ -6,16 +6,24 @@ const withData = (View) => {
 		state = {
 			data : null
 		}
-	
-		componentDidMount = () => {
-			this.props.getData()
-				.then(data => {
-					this.setState({
-						data
-					});
-				})
+		componentDidUpdate = (prevprops) => {
+			if (this.props.getData !== prevprops.getData){
+				this.update();
+			}
 		}
 
+		componentDidMount = () => {
+			this.update();
+		}
+
+		update (){
+			this.props.getData()
+			.then(data => {
+				this.setState({
+					data
+				});
+			})
+		}
 		render(){
 			const {data} = this.state;
 

@@ -3,12 +3,12 @@ import './app.css';
 
 import Header from '../header/header';
 import RandomPlanet from '../random-planet/random-planet';
-import ItemList from '../item-list/item-list';
 import ItemDetails, {Record} from '../item-details/item-details';
 import ErrorButton from '../error-btn/error-btn';
 import Error from '../error/error';
 import SwapiService from '../../services/swapi-service';
 import {SwapiServiceProvider} from '../swapi-service-context/swapi-service-context';
+import DummySwapiService from '../../services/dummy-swapi-service';
 
 import {Row, PeoplePage} from '../people-page/people-page';
 
@@ -24,10 +24,9 @@ import {
 export default class App  extends React.Component{
 	state = {
 		showPlanet : true,
-		hasError : false
+		hasError : false,
+		swapiService : new DummySwapiService()
 	}
-
-	swapiService = new SwapiService();
 
 	componentDidCatch(){
 		console.log('componentDidCatch');
@@ -42,13 +41,24 @@ export default class App  extends React.Component{
 		});
 	}
 
+	onChangeService = () =>{
+		console.log('Changed');
+		this.setState( ( {swapiService} ) => {
+			const Service = swapiService instanceof SwapiService ? DummySwapiService :   SwapiService;
+			console.log(Service);
+			return {
+				swapiService : new Service()
+			}
+		});
+	}
+
 	render(){
 		if (this.state.hasError){
 			// return <h1>Sorry, we have big mistake</h1>
 			return <Error/>
 		}
 		const planet = this.state.showPlanet ? <RandomPlanet /> : null;
-		const {getPerson, getImg, getPersomImg, getStarshipImg, getPlanetImg} = this.swapiService;
+		const {getPerson, getImg, getPersomImg, getStarshipImg, getPlanetImg} = this.state.swapiService;
 
 		const personDetails = (
 			<ItemDetails itemId={9}	
@@ -75,9 +85,10 @@ export default class App  extends React.Component{
 			);
 
 		return (
-			<SwapiServiceProvider value={this.swapiService}>	
+			<SwapiServiceProvider value={this.state.swapiService}>	
 				<div>
-					<Header/>
+					<Header onChangeService={this.onChangeService}/>
+
 					{planet}
 					<div className='row mb2 button-row'>
 						<button className='show-planet btn btn-warning btn-lg'
@@ -92,10 +103,7 @@ export default class App  extends React.Component{
 					<StarshipDetails itemId={9}/>
 
 					<PersonList/>
-					
-
 					<PlanetsList/>
-					
 					<StarshipList/>
 						
 					{/* <Row
@@ -110,7 +118,7 @@ export default class App  extends React.Component{
 						<div className='col-md-6'>
 							<ItemList 
 								onPropsSelected = {this.onPersonSelected}
-								getData = {this.swapiService.getAllImg}
+								getData = {this.state.swapiService.getAllImg}
 								renderItem={(item) => item.title}/>
 						</div>
 						<div className='col-md-6'>
@@ -124,7 +132,7 @@ export default class App  extends React.Component{
 						<div className='col-md-6'>
 							<ItemList 
 								onPropsSelected = {this.onPersonSelected}
-								getData = {this.swapiService.getAllPosts}
+								getData = {this.state.swapiService.getAllPosts}
 								renderItem={(item) => (
 									<span>
 										{item.id} <button>!</button>
