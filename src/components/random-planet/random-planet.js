@@ -62,25 +62,27 @@ export default class RandomPlanet extends React.Component {
 }
 
 const PlanetView = ({planet}) => {
-	const {id,title, url, thumbnailUrl} = planet;
+	console.log(planet);
+	const {id,name, population, rotationPeriod, diameter} = planet;
 	return (
 		<React.Fragment>
 			<img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
-					className='random-image'/>
+					className='random-image'
+					alt='haha1'/>
 			<div>
-				<h4>Данные о картине</h4>
+				<h4>{name}</h4>
 				<ul className='list-group list-group-flush'>
 					<li className='list-group-item'>
-						<span className='term'>Tittle</span>
-						<span>{title}</span>
+						<span className='term'>Population</span>
+						<span>{population}</span>
 					</li>
 					<li className='list-group-item'>
-						<span className='term'>Url</span>
-						<span>{url}</span>
+						<span className='term'>Rotation Period</span>
+						<span>{rotationPeriod}</span>
 					</li>
 					<li className='list-group-item'>
-						<span className='term'>ThumbnailUrl</span>
-						<span>{thumbnailUrl}</span>
+						<span className='term'>Diameter</span>
+						<span>{diameter}</span>
 					</li>
 				</ul>
 			</div>

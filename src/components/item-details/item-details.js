@@ -57,7 +57,7 @@ export default class ItemDetails extends React.Component {
 
 		return (
 			<div className='item-details card'>
-				<img className='item-image'
+				<img className='item-image' alt='haha'
 					// src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}/>
 					src={image}/>
 					<div className='card-body'>

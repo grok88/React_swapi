@@ -12,7 +12,6 @@ class ItemList extends React.Component{
 			const {id} = item;
 			const label = this.props.children(item)
 			for (i; i < 6; i++){
-				
 				return (
 					<li className='list-group-item'
 					key={id}
